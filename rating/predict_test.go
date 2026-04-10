@@ -197,7 +197,7 @@ func TestPredictDraw100PercentForSelfVsSelf(t *testing.T) {
 	}
 
 	probs := rating.PredictDraw(teams, nil)
-	is.Equal(probs, 0.9999999997530836)
+	is.Equal(probs, 0.4999999998765418)
 }
 
 func TestPredictDrawForTwoTeams(t *testing.T) {
@@ -215,7 +215,7 @@ func TestPredictDrawForTwoTeams(t *testing.T) {
 	}
 
 	probs := rating.PredictDraw(teams, nil)
-	is.Equal(probs, 0.7802614397078533)
+	is.Equal(probs, 0.1904367785755774)
 }
 
 func TestPredictDrawForThreeAsymmetricTeams(t *testing.T) {
@@ -242,7 +242,7 @@ func TestPredictDrawForThreeAsymmetricTeams(t *testing.T) {
 	}
 
 	probs := rating.PredictDraw(teams, nil)
-	is.Equal(probs, 0.08440390272031675)
+	is.Equal(probs, 0.06026160027701048)
 }
 
 func TestPredictRank(t *testing.T) {

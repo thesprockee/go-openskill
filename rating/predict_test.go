@@ -184,7 +184,7 @@ func TestPredictDraw100PercentForSolitare(t *testing.T) {
 	is.Equal(probs, 1.0)
 }
 
-func TestPredictDraw100PercentForSelfVsSelf(t *testing.T) {
+func TestPredictDrawForSelfVsSelf(t *testing.T) {
 	t.Parallel()
 	is := _is.New(t)
 	teams := []types.Team{

@@ -41,6 +41,10 @@ func getBetas(options *types.OpenSkillOptions) (float64, float64) {
 
 // PredictWin returns the probability of each team winning
 func PredictWin(teams []types.Team, options *types.OpenSkillOptions) []float64 {
+	if len(teams) < 2 || len(flattenTeams(teams)) == 0 {
+		return make([]float64, len(teams))
+	}
+
 	// Initialize util, used for teamRatings
 	_, betaSquared := getBetas(options)
 	u := util.NewWithOptions(&util.Options{
@@ -98,6 +102,11 @@ func PredictDraw(teams []types.Team, options *types.OpenSkillOptions) float64 {
 		return 1.0
 	}
 
+	flattened := flattenTeams(teams)
+	if len(flattened) == 0 {
+		return 0.0
+	}
+
 	beta, betaSquared := getBetas(options)
 	u := util.NewWithOptions(&util.Options{
 		BetaSquared: ptr.Float64(betaSquared),
@@ -110,7 +119,7 @@ func PredictDraw(teams []types.Team, options *types.OpenSkillOptions) float64 {
 
 	teamRatings := u.TeamRating(teams, options)
 
-	totalPlayerCount := float64(len(flattenTeams(teams)))
+	totalPlayerCount := float64(len(flattened))
 	drawProbability := 1.0 / totalPlayerCount
 	drawMargin := math.Sqrt(totalPlayerCount) * beta * normal.Quantile((1+drawProbability)/2)
 

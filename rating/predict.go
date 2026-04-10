@@ -82,7 +82,7 @@ func PredictWin(teams []types.Team, options *types.OpenSkillOptions) []float64 {
 			sigmaSqA := outerTeamRating.TeamSigmaSquared
 			sigmaSqB := innerTeamRating.TeamSigmaSquared
 
-			prediction += normal.CDF((muA - muB) / math.Sqrt(n*betaSQ+sigmaSqA*sigmaSqA+sigmaSqB*sigmaSqB))
+			prediction += normal.CDF((muA - muB) / math.Sqrt(2*betaSQ+sigmaSqA+sigmaSqB))
 		}
 
 		returning[i] = prediction / denom
@@ -140,7 +140,7 @@ func PredictDraw(teams []types.Team, options *types.OpenSkillOptions) float64 {
 			betaSQ := u.BetaSquared
 			sigmaSqA := outerTeamRating.TeamSigmaSquared
 			sigmaSqB := innerTeamRating.TeamSigmaSquared
-			sigmaBar := math.Sqrt(n*betaSQ + sigmaSqA*sigmaSqA + sigmaSqB*sigmaSqB)
+			sigmaBar := math.Sqrt(2*betaSQ + sigmaSqA + sigmaSqB)
 			prediction += normal.CDF((drawMargin-muA+muB)/sigmaBar) -
 				normal.CDF((muA-muB-drawMargin)/sigmaBar)
 		}
